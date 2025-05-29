@@ -1,42 +1,58 @@
 <template>
 <div class="guide">
-    <div class="guide-item">首页</div>
-    <div class="guide-item">消息</div>
-    <div class="guide-item">购物车</div>
-    <div class="guide-item">我的</div>
+    <router-link to="/" class="guide-item" :class="{ active: isActive('/') }">首页</router-link>
+    <router-link to="/message" class="guide-item" :class="{ active: isActive('/message') }">消息</router-link>
+    <router-link to="/cart" class="guide-item" :class="{ active: isActive('/cart') }">购物车</router-link>
+    <router-link to="/user" class="guide-item" :class="{ active: isActive('/user') }">我的</router-link>
 </div>
 </template>
-<script setup lang="ts" name="Footer"> 
+<script setup lang="ts" name="Footer">
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter();
+const route = useRoute();
+
+const isActive = (path: string) => {
+    return router.currentRoute.value.path === path;
+};
 </script>
 <style scoped>
-.guide{
+.guide {
     width: 100%;
-    background-color: #b92626;
-    height: 50px;
+    background-color: #ffffff;
+    height: 60px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    flex-direction: row;
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 999;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
-.guide-item{
-    width: 80px;
-    height: 50px;
-    background-color: #fff;
-    border-radius: 50%;
+
+.guide-item {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    color: #f1e4e4;
-    font-size: 20px;
+    justify-content: center;
+    color: #666666;
+    font-size: 12px;
     text-decoration: none;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 }
-.guide-item:hover{
-      color: #fff;
-        background-color: #b92626;
+
+.guide-item:hover {
+    color: #b92626;
+}
+
+.guide-item svg {
+    font-size: 24px;
+}
+
+/* 激活状态样式 */
+.guide-item.active {
+    color: #b92626;
+    transform: scale(1.1);
 }
 </style>
